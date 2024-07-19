@@ -1,0 +1,7 @@
+{
+    "playerStats": {
+        "health": 100,
+        "stamina": 100,
+        "damage": 5
+    }
+}
