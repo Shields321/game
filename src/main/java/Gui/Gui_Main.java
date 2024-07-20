@@ -27,7 +27,7 @@ public class Gui_Main extends JFrame implements Runnable {
     private Thread thread;
     private boolean running;
     private BufferedImage image;
-    public int[] pixels;
+    public int[] pixels//define map in main file that way multiple maps can be created
     public static int[][] map =
             {
                     {1,1,1,1,1,1,1,1,2,2,2,2,2,2,2},
