@@ -10,10 +10,10 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Player player = initializePlayer();        
+        Player player = initializePlayer();
         Gui_Main.setPlayerHolder(player);
         Gui_Main gui = new Gui_Main();
-        gui.launch();
+        gui.launch(player);
     }
     public static Player initializePlayer() throws IOException {
         PlayerStats playerStats = new PlayerStats();

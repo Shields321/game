@@ -1,7 +1,10 @@
 package Gui;
 
+import Game.Game_Main;
 import Gui.Screen;
 import player.Player;
+import usages.Prints;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
@@ -16,6 +19,7 @@ public class Gui_Main extends JFrame implements Runnable {
     public Camera camera;
     public Screen screen;
     public ArrayList<Texture> textures;
+    public Game_Main game;
 
     private static final long serialVersionUID = 1L;
     public int mapWidth = 15;
@@ -46,20 +50,21 @@ public class Gui_Main extends JFrame implements Runnable {
         playerHolder = player;
     }
 
-    public void init() throws Exception {
+    public void init(Player player) throws Exception {
         this.player = playerHolder;
+        this.game = new Game_Main(player);
         textures = new ArrayList<Texture>();
         textures.add(Texture.wood);
         textures.add(Texture.brick);
         textures.add(Texture.bluestone);
         textures.add(Texture.stone);
 
-        camera = new Camera(4.5, 4.5, 1, 0, 0, -.66);
+        camera = new Camera(4.5, 4.5, 1, 0, 0, -.66,game);
         addKeyListener(camera);
-        screen = new Screen(map, mapWidth, mapHeight, textures, 640, 480);
+        screen = new Screen(map, mapWidth, mapHeight, textures, 640, 480,player);
     }
-    public void launch() throws Exception{
-        this.init();
+    public void launch(Player player) throws Exception{
+        this.init(player);
         thread = new Thread(this);
         image = new BufferedImage(640,480,BufferedImage.TYPE_INT_RGB);
         pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
@@ -106,6 +111,7 @@ public class Gui_Main extends JFrame implements Runnable {
             lastTime = now;
             while(delta >= 1){//only update every 60 seconds
                 screen.update(camera, pixels);
+                //Prints.println(player.getHealth());
                 camera.update(map);
                 delta--;
             }

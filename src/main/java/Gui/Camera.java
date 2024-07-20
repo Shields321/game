@@ -1,20 +1,23 @@
 package Gui;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import Game.Game_Main;
 
 public class Camera implements KeyListener {
     public double xPos,yPos,xDir,yDir,xPlane,yPlane;
     public boolean left,right,forward,back;
     public final double MOVE_SPEED = .08;
     public final double ROTATION_SPEED = .045;
+    public Game_Main game;
 
-    public Camera(double x, double y, double xd, double yd, double xp, double yp){
+    public Camera(double x, double y, double xd, double yd, double xp, double yp , Game_Main game){
         xPos = x;
         yPos = y;
         xDir = xd;
         yDir = yd;
         xPlane = xp;
         yPlane = yp;
+        this.game = game;
     }
 
     @Override
@@ -42,6 +45,7 @@ public class Camera implements KeyListener {
             right = false;
         }
         if (key.getKeyCode() == KeyEvent.VK_UP || key.getKeyCode() == KeyEvent.VK_W){
+            game.updateStaminaAfterForwardMovement();
             forward = false;
         }
         if (key.getKeyCode() == KeyEvent.VK_DOWN || key.getKeyCode() == KeyEvent.VK_S){
