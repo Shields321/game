@@ -21,7 +21,7 @@ public class Screen {
         width = w;
         height = h;
         player = p;
-    }
+    //create the same 5hing for max health and max stamina
     public int[] displayHealth(Camera camera, int[] pixels){
         double fillPercent = (double) player.getHealth() / player.getMaxHealth();
         int barWidth = 100;
