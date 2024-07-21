@@ -111,7 +111,7 @@ public class Screen {
             //add a texture
             int texNum = map[mapX][mapY] - 1;
             double wallX;//Exact position of where wall was hit
-            if(side==1) {//If its a y-axis wall
+            if(side==1) {//If it's a y-axis wall
                 wallX = (camera.xPos + ((mapY - camera.yPos + (double) (1 - stepY) / 2) / rayDirY) * rayDirX);
             } else {//X-axis wall
                 wallX = (camera.yPos + ((mapX - camera.xPos + (double)(1 - stepX) / 2) / rayDirX) * rayDirY);
