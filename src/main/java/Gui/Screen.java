@@ -4,6 +4,7 @@ import Gui.Camera;
 import Gui.Texture;
 import usages.Prints;
 import player.Player;
+import Gui.UI;
 import java.util.ArrayList;
 import java.awt.Color;
 
@@ -21,36 +22,6 @@ public class Screen {
         width = w;
         height = h;
         player = p;
-    }
-    public int[] displayHealth(Camera camera, int[] pixels){
-        double fillPercent = (double) player.getHealth() / player.getMaxHealth();
-        int barWidth = 100;
-        int barHeight = 40;
-        int filledWidth = (int) (barWidth * fillPercent);
-        for (int y = 0; y < barHeight; y++){
-            for (int x = 0; x < filledWidth; x++){
-                int pixelIndex = y*width + x;
-                if (pixelIndex < pixels.length){
-                    pixels[pixelIndex] = Color.RED.getRGB();
-                }
-            }
-        }
-        return pixels;
-    }
-    public int[] displayStamina(Camera camera, int[] pixels){
-        double fillPercent = (double) player.getStamina() / player.getMaxStamina();
-        int barWidth = 100;
-        int barHeight = 50;
-        int filledWidth = (int) (barWidth * fillPercent);
-        for (int y = 42; y < barHeight; y++){
-            for (int x = 0; x < filledWidth; x++){
-                int pixelIndex = y*width + x;
-                if (pixelIndex < pixels.length){
-                    pixels[pixelIndex] = Color.GREEN.getRGB();
-                }
-            }
-        }
-        return pixels;
     }
     public int[] update(Camera camera, int[] pixels) {
         for(int n=0;n<pixels.length/2;n++){
@@ -163,8 +134,11 @@ public class Screen {
                 pixels[x + y*(width)] = color;
             }
         }
-        pixels = displayHealth(camera,pixels);
-        pixels = displayStamina(camera,pixels);
+        UI ui = new UI(player,pixels,width,height);
+        pixels = ui.displayMaxHealth();
+        pixels = ui.displayMaxStamina();
+        pixels = ui.displayHealth();
+        pixels = ui.displayStamina();
         return pixels;
     }
 }
