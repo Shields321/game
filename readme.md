@@ -1,6 +1,6 @@
 # My Project
 
-This is a description of my project.
+just a souls game (Maybe) that im trying to make
 
 ## In-Game Screenshot
 
