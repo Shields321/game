@@ -1,10 +1,7 @@
 package Gui;
 
-import Gui.Camera;
-import Gui.Texture;
-import usages.Prints;
 import player.Player;
-import Gui.UI;
+
 import java.util.ArrayList;
 import java.awt.Color;
 
@@ -23,35 +20,32 @@ public class Screen {
         height = h;
         player = p;
     }
-    public int[] update(Camera camera, int[] pixels) {
-        for(int n=0;n<pixels.length/2;n++){
-            if(pixels[n] != Color.DARK_GRAY.getRGB()){
-                pixels[n] = Color.DARK_GRAY.getRGB();
-            }
+    public void update(Camera camera, int[] pixels) {
+        for(int n=0; n<pixels.length/2; n++) {
+            if(pixels[n] != Color.DARK_GRAY.getRGB()) pixels[n] = Color.DARK_GRAY.getRGB();
         }
-        for(int i=pixels.length/2; i<pixels.length; i++) {
-            if(pixels[i] != Color.gray.getRGB()) {
-                pixels[i] = Color.gray.getRGB();
-            }
+        for(int i=pixels.length/2; i<pixels.length; i++){
+            if(pixels[i] != Color.gray.getRGB()) pixels[i] = Color.gray.getRGB();
         }
-        for(int x=0;x<width;x++) {
-            double cameraX = 2*x / (double)(width) -1;
-            double rayDirX = camera.xDir + camera.xPlane*cameraX;
-            double rayDirY = camera.yDir + camera.yPlane*cameraX;
-            //map position
+
+        for(int x=0; x<width; x=x+1) {
+            double cameraX = 2 * x / (double)(width) -1;
+            double rayDirX = camera.xDir + camera.xPlane * cameraX;
+            double rayDirY = camera.yDir + camera.yPlane * cameraX;
+            //Map position
             int mapX = (int)camera.xPos;
             int mapY = (int)camera.yPos;
             //length of ray from current position to next x or y-side
             double sideDistX;
             double sideDistY;
-            //length  of ray from one side to next map
-            double deltaDistX = Math.sqrt(1+(rayDirY*rayDirY)/(rayDirX*rayDirX));
-            double deltaDistY = Math.sqrt(1+(rayDirX*rayDirX)/(rayDirY*rayDirY));
+            //Length of ray from one side to next in map
+            double deltaDistX = Math.sqrt(1 + (rayDirY*rayDirY) / (rayDirX*rayDirX));
+            double deltaDistY = Math.sqrt(1 + (rayDirX*rayDirX) / (rayDirY*rayDirY));
             double perpWallDist;
             //Direction to go in x and y
-            int stepX,stepY;
+            int stepX, stepY;
             boolean hit = false;//was a wall hit
-            int side = 0; //was the wall vertical or horizontal
+            int side=0;//was the wall vertical or horizontal
             //Figure out the step direction and initial distance to a side
             if (rayDirX < 0)
             {
@@ -89,13 +83,14 @@ public class Screen {
                     side = 1;
                 }
                 //Check if ray has hit a wall
+                //System.out.println(mapX + ", " + mapY + ", " + map[mapX][mapY]);
                 if(map[mapX][mapY] > 0) hit = true;
             }
             //Calculate distance to the point of impact
             if(side==0)
-                perpWallDist = Math.abs((mapX - camera.xPos + (double)(1 - stepX) / 2) / rayDirX);
+                perpWallDist = Math.abs((mapX - camera.xPos + (double) (1 - stepX) / 2) / rayDirX);
             else
-                perpWallDist = Math.abs((mapY - camera.yPos + (double)(1 - stepY) / 2) / rayDirY);
+                perpWallDist = Math.abs((mapY - camera.yPos + (double) (1 - stepY) / 2) / rayDirY);
             //Now calculate the height of the wall based on the distance from the camera
             int lineHeight;
             if(perpWallDist > 0) lineHeight = Math.abs((int)(height / perpWallDist));
@@ -107,14 +102,13 @@ public class Screen {
             int drawEnd = lineHeight/2 + height/2;
             if(drawEnd >= height)
                 drawEnd = height - 1;
-
             //add a texture
             int texNum = map[mapX][mapY] - 1;
             double wallX;//Exact position of where wall was hit
-            if(side==1) {//If it's a y-axis wall
+            if(side==1) {//If its a y-axis wall
                 wallX = (camera.xPos + ((mapY - camera.yPos + (double) (1 - stepY) / 2) / rayDirY) * rayDirX);
             } else {//X-axis wall
-                wallX = (camera.yPos + ((mapX - camera.xPos + (double)(1 - stepX) / 2) / rayDirX) * rayDirY);
+                wallX = (camera.yPos + ((mapX - camera.xPos + (double) (1 - stepX) / 2) / rayDirX) * rayDirY);
             }
             wallX-=Math.floor(wallX);
             //x coordinate on the texture
@@ -125,12 +119,8 @@ public class Screen {
             for(int y=drawStart; y<drawEnd; y++) {
                 int texY = (((y*2 - height + lineHeight) << 6) / lineHeight) / 2;
                 int color;
-                if(side==0) {
-                    color = textures.get(texNum).pixels[texX + (texY * textures.get(texNum).SIZE)];
-                }
-                else {
-                    color = (textures.get(texNum).pixels[texX + (texY * textures.get(texNum).SIZE)]>>1) & 8355711;//Make y sides darker
-                }
+                if(side==0) color = textures.get(texNum).pixels[texX + (texY * textures.get(texNum).SIZE)];
+                else color = (textures.get(texNum).pixels[texX + (texY * textures.get(texNum).SIZE)]>>1) & 8355711;//Make y sides darker
                 pixels[x + y*(width)] = color;
             }
         }
@@ -139,6 +129,5 @@ public class Screen {
         pixels = ui.displayMaxStamina();
         pixels = ui.displayHealth();
         pixels = ui.displayStamina();
-        return pixels;
     }
 }

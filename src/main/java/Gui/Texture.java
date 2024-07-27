@@ -36,4 +36,5 @@ public class Texture {
     public static Texture stone = new Texture("G:\\Git_Code\\game\\src\\main\\java\\Gui\\Textures\\graystone.png", 64);
     public static Texture brick = new Texture("G:\\Git_Code\\game\\src\\main\\java\\Gui\\Textures\\redbrick.png", 64);
     public static Texture wood = new Texture("G:\\Git_Code\\game\\src\\main\\java\\Gui\\Textures\\wood.png", 64);
+    public static Texture sparkle = new Texture("G:\\images\\Arson.png", 1080);
 }

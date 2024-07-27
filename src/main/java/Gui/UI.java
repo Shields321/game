@@ -1,7 +1,7 @@
 package Gui;
 
 import player.Player;
-
+import usages.Prints;
 import java.awt.*;
 
 public class UI {
@@ -18,7 +18,7 @@ public class UI {
 
     public int[] displayHealth(){
         double fillPercent = (double) player.getHealth() / player.getMaxHealth();
-        int barWidth = 100;
+        int barWidth = player.getMaxHealth()/2;
         int barHeight = 40;
         int filledWidth = (int) (barWidth * fillPercent);
         for (int y = 0; y < barHeight; y++){
@@ -32,7 +32,7 @@ public class UI {
         return pixels;
     }
     public int[] displayMaxHealth(){
-        int barWidth = 100;
+        int barWidth = player.getMaxHealth()/2;
         int barHeight = 40;
         for (int y = 0; y < barHeight; y++){
             for (int x = 0; x < barWidth; x++){
@@ -46,7 +46,7 @@ public class UI {
     }
     public int[] displayStamina(){
         double fillPercent = (double) player.getStamina() / player.getMaxStamina();
-        int barWidth = 100;
+        int barWidth = player.getMaxStamina()/2;
         int barHeight = 50;
         int filledWidth = (int) (barWidth * fillPercent);
         for (int y = 42; y < barHeight; y++){
@@ -60,7 +60,7 @@ public class UI {
         return pixels;
     }
     public int[] displayMaxStamina(){
-        int barWidth = 100;
+        int barWidth = player.getMaxStamina()/2;
         int barHeight = 50;
         for (int y = 42; y < barHeight; y++){
             for (int x = 0; x < barWidth; x++){

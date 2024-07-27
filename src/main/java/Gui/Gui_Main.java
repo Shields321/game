@@ -3,6 +3,7 @@ package Gui;
 import Game.Game_Main;
 import Gui.Screen;
 import player.Player;
+import Game.Maps;
 import usages.Prints;
 
 import java.awt.Color;
@@ -16,10 +17,12 @@ import javax.swing.JFrame;
 public class Gui_Main extends JFrame implements Runnable {
     private Player player;
     private static Player playerHolder;
-    public Camera camera;
-    public Screen screen;
-    public ArrayList<Texture> textures;
-    public Game_Main game;
+    private Camera camera;
+    private Screen screen;
+    private ArrayList<Texture> textures;
+    private Game_Main game;
+    private static Maps maps = new Maps();
+
 
     private static final long serialVersionUID = 1L;
     public int mapWidth = 15;
@@ -27,25 +30,8 @@ public class Gui_Main extends JFrame implements Runnable {
     private Thread thread;
     private boolean running;
     private BufferedImage image;
-    public int[] pixels//define map in main file that way multiple maps can be created
-    public static int[][] map =
-            {
-                    {1,1,1,1,1,1,1,1,2,2,2,2,2,2,2},
-                    {1,0,0,0,0,0,0,0,2,0,0,0,0,0,2},
-                    {1,0,3,3,3,3,3,0,0,0,0,0,0,0,2},
-                    {1,0,3,0,0,0,3,0,2,0,0,0,0,0,2},
-                    {1,0,3,0,0,0,3,0,2,2,2,0,2,2,2},
-                    {1,0,3,0,0,0,3,0,2,0,0,0,0,0,2},
-                    {1,0,3,3,0,3,3,0,2,0,0,0,0,0,2},
-                    {1,0,0,0,0,0,0,0,2,0,0,0,0,0,2},
-                    {1,1,1,1,1,1,1,1,4,4,4,0,4,4,4},
-                    {1,0,0,0,0,0,1,4,0,0,0,0,0,0,4},
-                    {1,0,0,0,0,0,1,4,0,0,0,0,0,0,4},
-                    {1,0,0,2,0,0,1,4,0,3,3,3,3,0,4},
-                    {1,0,0,0,0,0,1,4,0,3,3,3,3,0,4},
-                    {1,0,0,0,0,0,0,0,0,0,0,0,0,0,4},
-                    {1,1,1,1,1,1,1,4,4,4,4,4,4,4,4}
-            };
+    public int[] pixels;//define map in main file that way multiple maps can be created
+    public static int[][] map = maps.getMaps(1);
     public static void setPlayerHolder(Player player) {
         playerHolder = player;
     }
@@ -58,17 +44,19 @@ public class Gui_Main extends JFrame implements Runnable {
         textures.add(Texture.brick);
         textures.add(Texture.bluestone);
         textures.add(Texture.stone);
+        textures.add(Texture.sparkle);
 
-        camera = new Camera(4.5, 4.5, 1, 0, 0, -.66,game);
+        camera = new Camera(4.5, 4.5, 1, 0, 0, -.66,game,player);
         addKeyListener(camera);
-        screen = new Screen(map, mapWidth, mapHeight, textures, 640, 480,player);
+        addMouseMotionListener(camera);
+        screen = new Screen(map, mapWidth, mapHeight, textures, 1920, 1080,player);
     }
     public void launch(Player player) throws Exception{
         this.init(player);
         thread = new Thread(this);
-        image = new BufferedImage(640,480,BufferedImage.TYPE_INT_RGB);
+        image = new BufferedImage(1920,1080,BufferedImage.TYPE_INT_RGB);
         pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
-        setSize(640,480);
+        setSize(1920,1080);
         setResizable(false);
         setTitle("Buggy Dark Souls");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

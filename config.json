@@ -1,9 +1,14 @@
 {
     "playerStats": {
-        "health": 100,
-        "maxHealth": 100,
-        "stamina": 100,
-        "maxStamina": 100,
+        "health": 2000,
+        "maxHealth": 2000,
+        "stamina": 1000,
+        "maxStamina": 1000,
+        "damage": 5
+    },
+    "EnemyStats": {
+        "health": 20,
+        "maxHealth": 20,
         "damage": 5
     }
 }
