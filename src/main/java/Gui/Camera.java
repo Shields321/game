@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.awt.*;
 import Game.Game_Main;
-import player.Player;
+import Entities.Player;
 
 public class Camera implements KeyListener, MouseMotionListener {
     public double xPos, yPos, xDir, yDir, xPlane, yPlane;

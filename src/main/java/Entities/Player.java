@@ -1,6 +1,4 @@
-package player;
-
-import usages.Prints;
+package Entities;
 
 public class Player {    
     private int UID;

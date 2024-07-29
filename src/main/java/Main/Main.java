@@ -1,8 +1,7 @@
-package main.java;
+package Main;
 
-import usages.Prints;
-import player.Player;
-import Enemy.Enemy;
+import Entities.Player;
+import Entities.Enemy;
 import Gui.Gui_Main;
 import ReadFiles.PlayerStats;
 import java.io.IOException;

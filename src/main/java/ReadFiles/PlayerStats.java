@@ -3,11 +3,10 @@ package ReadFiles;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import player.Player;
-import Enemy.Enemy;
+import Entities.Player;
+import Entities.Enemy;
 import usages.Prints;
 
 

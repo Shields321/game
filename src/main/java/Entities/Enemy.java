@@ -1,4 +1,4 @@
-package Enemy;
+package Entities;
 
 public class Enemy {
     public int health,maxHealth;

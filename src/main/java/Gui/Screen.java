@@ -1,7 +1,10 @@
 package Gui;
 
-import player.Player;
+import Entities.Player;
+import Meshes.MeshLoader;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.awt.Color;
 
@@ -124,10 +127,20 @@ public class Screen {
                 pixels[x + y*(width)] = color;
             }
         }
+        MeshLoader meshLoader = new MeshLoader(pixels, width, height, width / 2, height / 2);
         UI ui = new UI(player,pixels,width,height);
+        String filepath = "src/main/java/models/test.obj"; // Ensure the file path is correct
+        if (Files.exists(Paths.get(filepath))) {
+            meshLoader.load(filepath);
+            System.out.println("Loaded " + meshLoader.getVertices().size() + " vertices");
+        } else {
+            System.err.println("File not found: " + filepath);
+        }
+
         pixels = ui.displayMaxHealth();
         pixels = ui.displayMaxStamina();
         pixels = ui.displayHealth();
         pixels = ui.displayStamina();
+        pixels = meshLoader.renderToPixels();
     }
 }

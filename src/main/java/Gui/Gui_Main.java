@@ -2,8 +2,10 @@ package Gui;
 
 import Game.Game_Main;
 import Gui.Screen;
-import player.Player;
+import Entities.Player;
 import Game.Maps;
+import Meshes.MeshLoader;
+import Meshes.MeshLoader;
 import usages.Prints;
 
 import java.awt.Color;
@@ -11,6 +13,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
@@ -50,6 +54,7 @@ public class Gui_Main extends JFrame implements Runnable {
         addKeyListener(camera);
         addMouseMotionListener(camera);
         screen = new Screen(map, mapWidth, mapHeight, textures, 1920, 1080,player);
+
     }
     public void launch(Player player) throws Exception{
         this.init(player);

@@ -1,7 +1,7 @@
 package Gui;
 
-import player.Player;
-import usages.Prints;
+import Entities.Player;
+
 import java.awt.*;
 
 public class UI {
